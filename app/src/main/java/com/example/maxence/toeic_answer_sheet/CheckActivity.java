@@ -137,18 +137,25 @@ public class CheckActivity extends AppCompatActivity {
             radioButtonD.setId(i*10 + 4);
             group.addView(radioButtonD);
 
+            for(int k = 0; k < 4; k++)
+                group.getChildAt(k).setEnabled(false);
+
             switch (answers.getBytes()[i]){
                 case 'A':
                     group.check(i*10 + 1);
+                    group.getChildAt(0).setEnabled(true);
                     break;
                 case 'B':
                     group.check(i*10 + 2);
+                    group.getChildAt(1).setEnabled(true);
                     break;
                 case 'C':
                     group.check(i*10 + 3);
+                    group.getChildAt(2).setEnabled(true);
                     break;
                 case 'D':
                     group.check(i*10 + 4);
+                    group.getChildAt(3).setEnabled(true);
                     break;
                 default:
                     break;
