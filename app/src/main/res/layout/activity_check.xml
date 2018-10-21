@@ -31,6 +31,28 @@
                     android:text="Score : "/>
 
                 <TextView
+                    android:id="@+id/check_scoreOral"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" + "/>
+
+                <TextView
+                    android:id="@+id/check_scoreWritten"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" = "/>
+
+                <TextView
                     android:id="@+id/check_score200"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

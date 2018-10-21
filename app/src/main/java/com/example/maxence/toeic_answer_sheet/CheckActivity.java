@@ -13,6 +13,8 @@ import android.widget.RadioGroup;
 import android.widget.Space;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import static android.util.TypedValue.COMPLEX_UNIT_DIP;
 
 public class CheckActivity extends AppCompatActivity {
@@ -32,14 +34,26 @@ public class CheckActivity extends AppCompatActivity {
     }
 
     public void computeScore(View view){
-        int score = 0;
+        int scoreOral = 0;
+        int scoreWritten = 0;
         RadioGroup group;
         for(int i = 0; i < 200; i++){
             group = (RadioGroup) findViewById(i*10 + 5);
             // YES is checked
-            if(group.getCheckedRadioButtonId() == i*10 + 7)
-                score++;
+            if(group.getCheckedRadioButtonId() == i*10 + 7){
+                if(i < 100)
+                    scoreOral++;
+                else
+                    scoreWritten++;
+            }
+
         }
+
+        int score = scoreOral + scoreWritten;
+        TextView scoreO = (TextView) findViewById(R.id.check_scoreOral);
+        scoreO.setText("" + scoreOral);
+        TextView scoreW = (TextView) findViewById(R.id.check_scoreWritten);
+        scoreW.setText("" + scoreWritten);
         TextView score200 = (TextView) findViewById(R.id.check_score200);
         score200.setText("" + score + "/200");
         TextView score1000 = (TextView) findViewById(R.id.check_score1000);
