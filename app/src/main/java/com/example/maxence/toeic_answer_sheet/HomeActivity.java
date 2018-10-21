@@ -22,4 +22,9 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoadActivity.class);
         startActivity(intent);
     }
+
+    public void switchToDelete(View view) {
+        Intent intent = new Intent(this, DeleteActivity.class);
+        startActivity(intent);
+    }
 }

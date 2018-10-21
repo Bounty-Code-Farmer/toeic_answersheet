@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AnswerActivity" />
-        <activity android:name=".LoadActivity"></activity>
+        <activity android:name=".LoadActivity" />
+        <activity android:name=".DeleteActivity"></activity>
     </application>
 
 </manifest>
