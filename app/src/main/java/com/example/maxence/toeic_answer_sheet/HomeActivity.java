@@ -17,4 +17,9 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AnswerActivity.class);
         startActivity(intent);
     }
+
+    public void switchToLoad(View view) {
+        Intent intent = new Intent(this, LoadActivity.class);
+        startActivity(intent);
+    }
 }
