@@ -3,7 +3,7 @@ package com.example.maxence.toeic_answer_sheet;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Answer extends AppCompatActivity {
+public class AnswerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

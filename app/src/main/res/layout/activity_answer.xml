@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.maxence.toeic_answer_sheet.Answer">
+    tools:context="com.example.maxence.toeic_answer_sheet.AnswerActivity">
 
     <LinearLayout
         android:layout_width="344dp"
