@@ -28,7 +28,8 @@
             android:name=".DeleteActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".SaveActivity"></activity>
+        <activity android:name=".SaveActivity" />
+        <activity android:name=".CheckActivity"></activity>
     </application>
 
 </manifest>

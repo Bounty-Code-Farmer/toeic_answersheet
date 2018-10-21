@@ -38,6 +38,12 @@ public class AnswerActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void switchToCheck(View view){
+        Intent intent = new Intent(this, CheckActivity.class);
+        intent.putExtra(ANSWERS, parseAnswers());
+        startActivity(intent);
+    }
+
     public String parseAnswers(){
         String answers = "";
         for(int i = 0; i < 200; i++){

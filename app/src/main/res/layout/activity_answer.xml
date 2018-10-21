@@ -23,8 +23,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="switchToSave"
+                android:text="Check" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="switchToCheck"
                 android:text="Save" />
-            
+
         </LinearLayout>
     </ScrollView>
 
