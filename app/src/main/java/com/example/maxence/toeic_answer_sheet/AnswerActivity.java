@@ -19,6 +19,8 @@ import static android.util.TypedValue.COMPLEX_UNIT_DIP;
 
 public class AnswerActivity extends AppCompatActivity {
 
+    public final static String ANSWERS = "com.example.maxence.toeic_answer_sheet";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,26 +32,23 @@ public class AnswerActivity extends AppCompatActivity {
 
     }
 
-    public void save(View view){
-            String res = "";
-            for(String s : parseAnswers()){
-                res+= s;
-            }
-            TextView debug = (TextView) findViewById(R.id.anwser_debug);
-            debug.setText(res);
+    public void switchToSave(View view){
+        Intent intent = new Intent(this, SaveActivity.class);
+        intent.putExtra(ANSWERS, parseAnswers());
+        startActivity(intent);
     }
 
-    public List<String> parseAnswers(){
-        List<String> answers = new ArrayList<>();
+    public String parseAnswers(){
+        String answers = "";
         for(int i = 0; i < 200; i++){
             RadioGroup temp = (RadioGroup) findViewById(i*10);
             int index = i*10;
             int checked = temp.getCheckedRadioButtonId();
-            if(checked == index + 1) answers.add("A");
-            else if(checked == index + 2) answers.add("B");
-            else if(checked == index + 3) answers.add("C");
-            else if(checked == index + 4) answers.add("D");
-            else answers.add("?");
+            if(checked == index + 1) answers+="A";
+            else if(checked == index + 2) answers+="B";
+            else if(checked == index + 3) answers+="C";
+            else if(checked == index + 4) answers+="D";
+            else answers+="?";
         }
         return answers;
     }
