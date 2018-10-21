@@ -6,6 +6,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.maxence.toeic_answer_sheet.Home">
-    
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/newsheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="switchToAnswer"
+            android:text="New sheet" />
+
+        <Button
+            android:id="@+id/loadsheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Load Sheet" />
+
+        <Button
+            android:id="@+id/deletesheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delete Sheet"/>
+
+    </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>
