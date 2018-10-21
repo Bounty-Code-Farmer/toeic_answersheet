@@ -1,13 +1,19 @@
 package com.example.maxence.toeic_answer_sheet;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.util.TypedValue.COMPLEX_UNIT_DIP;
 
@@ -18,11 +24,37 @@ public class AnswerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer);
 
-        createAnswerLines();
+        LinearLayout mainLayout = (LinearLayout) findViewById(R.id.answer_main_layout);
+        createAnswerLines(mainLayout);
+
+
     }
 
-    public void createAnswerLines(){
-        LinearLayout mainLayout = (LinearLayout) findViewById(R.id.answer_main_layout);
+    public void save(View view){
+            String res = "";
+            for(String s : parseAnswers()){
+                res+= s;
+            }
+            TextView debug = (TextView) findViewById(R.id.anwser_debug);
+            debug.setText(res);
+    }
+
+    public List<String> parseAnswers(){
+        List<String> answers = new ArrayList<>();
+        for(int i = 0; i < 200; i++){
+            RadioGroup temp = (RadioGroup) findViewById(i*10);
+            int index = i*10;
+            int checked = temp.getCheckedRadioButtonId();
+            if(checked == index + 1) answers.add("A");
+            else if(checked == index + 2) answers.add("B");
+            else if(checked == index + 3) answers.add("C");
+            else if(checked == index + 4) answers.add("D");
+            else answers.add("?");
+        }
+        return answers;
+    }
+
+    public void createAnswerLines(LinearLayout mainLayout){
         for(int i = 0; i < 200; ++i){
             LinearLayout subLayout = new LinearLayout(this);
             subLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -63,7 +95,7 @@ public class AnswerActivity extends AppCompatActivity {
                     ViewGroup.LayoutParams.WRAP_CONTENT));
 
             RadioGroup group = new RadioGroup(this);
-            group.setId(1000 + i);
+            group.setId(i*10);
             group.setLayoutParams(new RadioGroup.LayoutParams(
                     RadioGroup.LayoutParams.WRAP_CONTENT,
                     RadioGroup.LayoutParams.WRAP_CONTENT));
@@ -73,24 +105,28 @@ public class AnswerActivity extends AppCompatActivity {
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             radioButtonA.setText("A");
+            radioButtonA.setId(i*10 + 1);
             group.addView(radioButtonA);
             RadioButton radioButtonB = new RadioButton(this);
             radioButtonB.setLayoutParams(new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             radioButtonB.setText("B");
+            radioButtonB.setId(i*10 + 2);
             group.addView(radioButtonB);
             RadioButton radioButtonC = new RadioButton(this);
             radioButtonC.setLayoutParams(new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             radioButtonC.setText("C");
+            radioButtonC.setId(i*10 + 3);
             group.addView(radioButtonC);
             RadioButton radioButtonD = new RadioButton(this);
             radioButtonD.setLayoutParams(new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             radioButtonD.setText("D");
+            radioButtonD.setId(i*10 + 4);
             group.addView(radioButtonD);
 
             subLayout.addView(questionNum);
