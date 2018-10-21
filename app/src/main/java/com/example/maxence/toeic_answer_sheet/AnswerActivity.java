@@ -63,6 +63,7 @@ public class AnswerActivity extends AppCompatActivity {
                     ViewGroup.LayoutParams.WRAP_CONTENT));
 
             RadioGroup group = new RadioGroup(this);
+            group.setId(1000 + i);
             group.setLayoutParams(new RadioGroup.LayoutParams(
                     RadioGroup.LayoutParams.WRAP_CONTENT,
                     RadioGroup.LayoutParams.WRAP_CONTENT));
