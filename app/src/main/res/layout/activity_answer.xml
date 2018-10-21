@@ -22,13 +22,13 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="switchToSave"
+                android:onClick="switchToCheck"
                 android:text="Check" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="switchToCheck"
+                android:onClick="switchToSave"
                 android:text="Save" />
 
         </LinearLayout>
