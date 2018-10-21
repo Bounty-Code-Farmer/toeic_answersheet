@@ -6,4 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".LoadActivity">
 
+    <LinearLayout
+        android:id="@+id/load_main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RadioGroup
+            android:id="@+id/load_files"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </RadioGroup>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Load"
+            android:onClick="loadSelectedFile"/>
+
+        <TextView
+            android:id="@+id/load_debug"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
