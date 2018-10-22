@@ -1,5 +1,7 @@
 package com.example.maxence.toeic_answer_sheet;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -46,12 +48,28 @@ public class SaveActivity extends AppCompatActivity {
 
         EditText editText = (EditText) findViewById(R.id.save_fileName);
         String editTextContent = editText.getText().toString();
-        if(!editTextContent.equals("") && !editTextContent.contains("txt"))
+        if(!editTextContent.equals("") && !editTextContent.contains(".txt"))
             fileName = editText.getText().toString();
 
         try {
             output = openFileOutput("TOEIC_" + fileName + ".txt", MODE_PRIVATE);
             output.write(answers.getBytes());
+
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_info)
+                    .setTitle("Success!")
+                    .setMessage("Answer sheet successfully saved")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(SaveActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                        }
+
+                    })
+                    .show();
+
             if(output != null)
                 output.close();
         } catch (FileNotFoundException e) {
