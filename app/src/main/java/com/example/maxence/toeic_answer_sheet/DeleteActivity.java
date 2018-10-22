@@ -41,7 +41,8 @@ public class DeleteActivity extends AppCompatActivity {
     }
 
     public void deleteSelectedFiles(){
-        for(int i = 0; i < fileList().length; i++){
+        int nbFiles = fileList().length;
+        for(int i = 0; i < nbFiles; i++){
             CheckBox checkBox = (CheckBox) findViewById(15000 + i);
             if(checkBox.isChecked()){
                 deleteFile("TOEIC_" + checkBox.getText().toString() + ".txt");
