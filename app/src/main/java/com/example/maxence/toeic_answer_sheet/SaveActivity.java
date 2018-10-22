@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -28,6 +27,9 @@ public class SaveActivity extends AppCompatActivity {
         Intent intent = getIntent();
         answers = intent.getStringExtra(AnswerActivity.ANSWERS);
         //checked = intent.getBooleanExtra(CheckActivity.???)
+
+        EditText editText = (EditText) findViewById(R.id.save_fileName);
+        editText.requestFocus();
 
         displayFiles();
 
