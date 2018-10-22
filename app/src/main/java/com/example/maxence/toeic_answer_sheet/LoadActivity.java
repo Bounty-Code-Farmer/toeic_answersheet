@@ -41,18 +41,18 @@ public class LoadActivity extends AppCompatActivity {
 
     public void loadSelectedFile(View view) {
         FileInputStream input;
-        StringBuffer answers = new StringBuffer("");
+        StringBuffer data = new StringBuffer("");
         RadioGroup saves = (RadioGroup) findViewById(R.id.load_files);
         RadioButton selected = findViewById(saves.getCheckedRadioButtonId());
         try {
             input = openFileInput("TOEIC_" + selected.getText().toString() + ".txt");
             byte[] buffer = new byte[1024];
-            answers = new StringBuffer("");
+            data = new StringBuffer("");
 
             int n;
             while ((n = input.read(buffer)) != -1)
             {
-                answers.append(new String(buffer, 0, n));
+                data.append(new String(buffer, 0, n));
             }
 
         } catch (FileNotFoundException e) {
@@ -61,8 +61,19 @@ public class LoadActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Intent intent = new Intent(this, AnswerActivity.class);
-        intent.putExtra(AnswerActivity.ANSWERS, answers.toString());
+        String dataString = data.toString();
+
+        Intent intent;
+        if(dataString.contains("true")){ // Sheet already checked
+            intent = new Intent(this, CheckActivity.class);
+            intent.putExtra(CheckActivity.CHECKED, true);
+            intent.putExtra(CheckActivity.CHECKING, dataString.substring(200,400));
+        }else {
+            intent = new Intent(this, AnswerActivity.class);
+        }
+
+        intent.putExtra(AnswerActivity.ANSWERS, dataString.substring(0,200));
+
         Button button = (Button) findViewById(R.id.load_load_button);
         button.setEnabled(false);
         startActivity(intent);

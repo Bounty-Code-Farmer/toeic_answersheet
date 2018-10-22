@@ -65,11 +65,11 @@ public class SaveActivity extends AppCompatActivity {
             output = openFileOutput("TOEIC_" + fileName + ".txt", MODE_PRIVATE);
             output.write(answers.getBytes());
             if(checked){
+                output.write(checking.getBytes());
                 output.write("true".getBytes());
                 output.write(scoreOral.getBytes());
                 output.write('|');
                 output.write(scoreWritten.getBytes());
-                output.write(checking.getBytes());
             }
 
             new AlertDialog.Builder(this)

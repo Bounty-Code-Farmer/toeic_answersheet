@@ -24,6 +24,8 @@ public class CheckActivity extends AppCompatActivity {
     public final static String SCOREORAL = "com.example.maxence.toeic_answer_sheet.SCOREORAL";
     public final static String SCOREWRITTEN = "com.example.maxence.toeic_answer_sheet.SCOREWRITTEN";
     public String answers;
+    public String checking;
+    public boolean checked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,35 @@ public class CheckActivity extends AppCompatActivity {
         Intent intent = getIntent();
         answers = intent.getStringExtra(AnswerActivity.ANSWERS);
 
+        checked = intent.getBooleanExtra(CheckActivity.CHECKED, false);
+        checking = intent.getStringExtra(CheckActivity.CHECKING);
+
         LinearLayout mainLayout = (LinearLayout) findViewById(R.id.check_main_layout);
         createAnswerLines(mainLayout);
+
+        if(checked)
+            restoreChecking();
+    }
+
+    public void restoreChecking() {
+        RadioGroup checkingGroup;
+        RadioGroup answersGroup;
+        for(int i = 0; i < 200; i++) {
+            checkingGroup = (RadioGroup) findViewById(i*10 + 5);
+            answersGroup = (RadioGroup) findViewById(i*10);
+            switch (checking.getBytes()[i]){
+                case 'N':
+                    checkingGroup.check(i*10 + 6);
+                    disableCorrection(i*10, answersGroup.getCheckedRadioButtonId());
+                    break;
+                case 'Y':
+                    checkingGroup.check(i*10 + 7);
+                    disableCorrection(i*10, answersGroup.getCheckedRadioButtonId());
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     public void computeScore(View view){
@@ -78,10 +107,12 @@ public class CheckActivity extends AppCompatActivity {
             button.setEnabled(false);
         }
         button = (RadioButton) findViewById(buttonIdToKeepEnable);
-        button.setEnabled(true);
+        if(button != null)
+            button.setEnabled(true);
     }
 
     public void switchToSave(View view){
+        computeScore(findViewById(R.id.check_compute_button));
         Intent intent = new Intent(this, SaveActivity.class);
         intent.putExtra(AnswerActivity.ANSWERS, parseAnswers());
         intent.putExtra(CheckActivity.CHECKING, parseChecking());
