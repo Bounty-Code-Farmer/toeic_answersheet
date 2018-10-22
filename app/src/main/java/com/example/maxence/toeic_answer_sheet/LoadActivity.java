@@ -1,5 +1,6 @@
 package com.example.maxence.toeic_answer_sheet;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,18 +34,18 @@ public class LoadActivity extends AppCompatActivity {
 
     public void loadSelectedFile(View view) {
         FileInputStream input;
-        StringBuffer data = new StringBuffer("");
+        StringBuffer answers = new StringBuffer("");
         RadioGroup saves = (RadioGroup) findViewById(R.id.load_files);
         RadioButton selected = findViewById(saves.getCheckedRadioButtonId());
         try {
             input = openFileInput("TOEIC_" + selected.getText().toString() + ".txt");
             byte[] buffer = new byte[1024];
-            data = new StringBuffer("");
+            answers = new StringBuffer("");
 
             int n;
             while ((n = input.read(buffer)) != -1)
             {
-                data.append(new String(buffer, 0, n));
+                answers.append(new String(buffer, 0, n));
             }
 
         } catch (FileNotFoundException e) {
@@ -53,8 +54,9 @@ public class LoadActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        TextView textView = (TextView) findViewById(R.id.load_debug);
-        textView.setText(data);
+        Intent intent = new Intent(this, AnswerActivity.class);
+        intent.putExtra(AnswerActivity.ANSWERS, answers.toString());
+        startActivity(intent);
     }
 
     public void displayFiles() {

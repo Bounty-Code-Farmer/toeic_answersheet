@@ -22,6 +22,7 @@ import static android.util.TypedValue.COMPLEX_UNIT_DIP;
 public class AnswerActivity extends AppCompatActivity {
 
     public final static String ANSWERS = "com.example.maxence.toeic_answer_sheet";
+    public String answers = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,10 @@ public class AnswerActivity extends AppCompatActivity {
         LinearLayout mainLayout = (LinearLayout) findViewById(R.id.answer_main_layout);
         createAnswerLines(mainLayout);
 
-
+        Intent intent = getIntent();
+        answers = intent.getStringExtra(AnswerActivity.ANSWERS);
+        if(answers != null)
+            restoreAnswers();
     }
 
     @Override
@@ -50,6 +54,30 @@ public class AnswerActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("No", null)
                 .show();
+    }
+
+    public void restoreAnswers(){
+        RadioGroup group;
+        for(int i = 0; i < 200; i++){
+            group = (RadioGroup) findViewById(i*10);
+            for(int k = 0; k < 4; k++)
+                switch (answers.getBytes()[i]){
+                    case 'A':
+                        group.check(i*10 + 1);
+                        break;
+                    case 'B':
+                        group.check(i*10 + 2);
+                        break;
+                    case 'C':
+                        group.check(i*10 + 3);
+                        break;
+                    case 'D':
+                        group.check(i*10 + 4);
+                        break;
+                    default:
+                        break;
+                }
+        }
     }
 
     public void switchToSave(View view){
