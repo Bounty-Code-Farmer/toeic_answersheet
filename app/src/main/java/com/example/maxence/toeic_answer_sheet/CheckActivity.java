@@ -60,6 +60,25 @@ public class CheckActivity extends AppCompatActivity {
         score1000.setText("" + score * 5 + "/1000");
     }
 
+    public void enableCorrection(int checkGroupId){
+        RadioButton button;
+        int radioGroupId = checkGroupId - 5;
+        for(int i = radioGroupId + 1; i <= radioGroupId + 4; i++){
+            button = (RadioButton) findViewById(i);
+            button.setEnabled(true);
+        }
+    }
+
+    public void disableCorrection(int radioGroupId, int buttonIdToKeepEnable){
+        RadioButton button;
+        for(int i = radioGroupId + 1; i <= radioGroupId + 4; i++){
+            button = (RadioButton) findViewById(i);
+            button.setEnabled(false);
+        }
+        button = (RadioButton) findViewById(buttonIdToKeepEnable);
+        button.setEnabled(true);
+    }
+
     public void createAnswerLines(LinearLayout mainLayout){
         for(int i = 0; i < 200; ++i){
             LinearLayout subLayout = new LinearLayout(this);
@@ -161,6 +180,12 @@ public class CheckActivity extends AppCompatActivity {
                     break;
             }
 
+            group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup radioGroup, int id) {
+                    disableCorrection(radioGroup.getId(), id);
+                }
+            });
             subLayout.addView(group);
 
             Space space = new Space(this);
@@ -197,6 +222,13 @@ public class CheckActivity extends AppCompatActivity {
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             checkYes.setText("Y");
             checkYes.setId(i*10 + 7);
+            checkGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup radioGroup, int id) {
+                    if(id%10 == 6)
+                        enableCorrection(radioGroup.getId());
+                }
+            });
             checkGroup.addView(checkYes);
 
             subLayout.addView(checkGroup);
