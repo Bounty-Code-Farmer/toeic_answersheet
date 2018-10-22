@@ -29,7 +29,9 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity android:name=".SaveActivity" />
-        <activity android:name=".CheckActivity"></activity>
+        <activity android:name=".CheckActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
