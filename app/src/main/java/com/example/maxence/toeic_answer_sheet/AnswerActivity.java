@@ -21,7 +21,7 @@ import static android.util.TypedValue.COMPLEX_UNIT_DIP;
 
 public class AnswerActivity extends AppCompatActivity {
 
-    public final static String ANSWERS = "com.example.maxence.toeic_answer_sheet";
+    public final static String ANSWERS = "com.example.maxence.toeic_answer_sheet.ANSWERS";
     public String answers = "";
 
     @Override
@@ -104,8 +104,8 @@ public class AnswerActivity extends AppCompatActivity {
     public String parseAnswers(){
         String answers = "";
         for(int i = 0; i < 200; i++){
-            RadioGroup temp = (RadioGroup) findViewById(i*10);
             int index = i*10;
+            RadioGroup temp = (RadioGroup) findViewById(index);
             int checked = temp.getCheckedRadioButtonId();
             if(checked == index + 1) answers+="A";
             else if(checked == index + 2) answers+="B";

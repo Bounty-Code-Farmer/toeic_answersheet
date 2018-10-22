@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
+import org.w3c.dom.Text;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -17,7 +19,10 @@ import java.io.IOException;
 public class SaveActivity extends AppCompatActivity {
 
     public String answers;
-    //public boolean checked;
+    public String checking;
+    public boolean checked;
+    public String scoreOral;
+    public String scoreWritten;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +31,10 @@ public class SaveActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         answers = intent.getStringExtra(AnswerActivity.ANSWERS);
-        //checked = intent.getBooleanExtra(CheckActivity.???)
+        checked = intent.getBooleanExtra(CheckActivity.CHECKED, false);
+        checking = intent.getStringExtra(CheckActivity.CHECKING);
+        scoreOral = intent.getStringExtra(CheckActivity.SCOREORAL);
+        scoreWritten = intent.getStringExtra(CheckActivity.SCOREWRITTEN);
 
         EditText editText = (EditText) findViewById(R.id.save_fileName);
         editText.requestFocus();
@@ -56,6 +64,13 @@ public class SaveActivity extends AppCompatActivity {
         try {
             output = openFileOutput("TOEIC_" + fileName + ".txt", MODE_PRIVATE);
             output.write(answers.getBytes());
+            if(checked){
+                output.write("true".getBytes());
+                output.write(scoreOral.getBytes());
+                output.write('|');
+                output.write(scoreWritten.getBytes());
+                output.write(checking.getBytes());
+            }
 
             new AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_dialog_info)

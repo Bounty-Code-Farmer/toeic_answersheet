@@ -19,6 +19,10 @@ import static android.util.TypedValue.COMPLEX_UNIT_DIP;
 
 public class CheckActivity extends AppCompatActivity {
 
+    public final static String CHECKING = "com.example.maxence.toeic_answer_sheet.CHECKING";
+    public final static String CHECKED = "com.example.maxence.toeic_answer_sheet.CHECKED";
+    public final static String SCOREORAL = "com.example.maxence.toeic_answer_sheet.SCOREORAL";
+    public final static String SCOREWRITTEN = "com.example.maxence.toeic_answer_sheet.SCOREWRITTEN";
     public String answers;
 
     @Override
@@ -46,9 +50,7 @@ public class CheckActivity extends AppCompatActivity {
                 else
                     scoreWritten++;
             }
-
         }
-
         int score = scoreOral + scoreWritten;
         TextView scoreO = (TextView) findViewById(R.id.check_scoreOral);
         scoreO.setText("" + scoreOral);
@@ -77,6 +79,46 @@ public class CheckActivity extends AppCompatActivity {
         }
         button = (RadioButton) findViewById(buttonIdToKeepEnable);
         button.setEnabled(true);
+    }
+
+    public void switchToSave(View view){
+        Intent intent = new Intent(this, SaveActivity.class);
+        intent.putExtra(AnswerActivity.ANSWERS, parseAnswers());
+        intent.putExtra(CheckActivity.CHECKING, parseChecking());
+        intent.putExtra(CheckActivity.CHECKED, true);
+        TextView scoreO = (TextView) findViewById(R.id.check_scoreOral);
+        TextView scoreW = (TextView) findViewById(R.id.check_scoreWritten);
+        intent.putExtra(CheckActivity.SCOREORAL, scoreO.getText());
+        intent.putExtra(CheckActivity.SCOREWRITTEN, scoreW.getText());
+        startActivity(intent);
+    }
+
+    public String parseAnswers(){
+        String ans = "";
+        for(int i = 0; i < 200; i++){
+            int index = i*10;
+            RadioGroup temp = (RadioGroup) findViewById(index);
+            int checked = temp.getCheckedRadioButtonId();
+            if(checked == index + 1) ans+="A";
+            else if(checked == index + 2) ans+="B";
+            else if(checked == index + 3) ans+="C";
+            else if(checked == index + 4) ans+="D";
+            else ans+="?";
+        }
+        return ans;
+    }
+
+    public String parseChecking(){
+        String checking = "";
+        for(int i = 0; i < 200; i++){
+            int index = i*10;
+            RadioGroup temp = (RadioGroup) findViewById(index + 5);
+            int checked = temp.getCheckedRadioButtonId();
+            if(checked == index + 6) checking+="N";
+            else if(checked == index + 7) checking+="Y";
+            else checking+="?";
+        }
+        return checking;
     }
 
     public void createAnswerLines(LinearLayout mainLayout){
