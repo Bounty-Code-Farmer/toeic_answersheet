@@ -32,6 +32,13 @@ public class LoadActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        Button button = (Button) findViewById(R.id.load_load_button);
+        button.setEnabled(true);
+        super.onResume();
+    }
+
     public void loadSelectedFile(View view) {
         FileInputStream input;
         StringBuffer answers = new StringBuffer("");
@@ -56,6 +63,8 @@ public class LoadActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, AnswerActivity.class);
         intent.putExtra(AnswerActivity.ANSWERS, answers.toString());
+        Button button = (Button) findViewById(R.id.load_load_button);
+        button.setEnabled(false);
         startActivity(intent);
     }
 

@@ -56,6 +56,13 @@ public class AnswerActivity extends AppCompatActivity {
                 .show();
     }
 
+    @Override
+    protected void onResume() {
+        Button button = (Button) findViewById(R.id.answer_check_button);
+        button.setEnabled(true);
+        super.onResume();
+    }
+
     public void restoreAnswers(){
         RadioGroup group;
         for(int i = 0; i < 200; i++){
@@ -89,6 +96,8 @@ public class AnswerActivity extends AppCompatActivity {
     public void switchToCheck(View view){
         Intent intent = new Intent(this, CheckActivity.class);
         intent.putExtra(ANSWERS, parseAnswers());
+        Button button = (Button) findViewById(R.id.answer_check_button);
+        button.setEnabled(false);
         startActivity(intent);
     }
 
