@@ -14,6 +14,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,6 +119,21 @@ public class AnswerActivity extends AppCompatActivity {
         return answers;
     }
 
+    public void autoSave(String data){
+        FileOutputStream output = null;
+        try {
+            output = openFileOutput("TOEIC_autoSave.txt", MODE_PRIVATE);
+            output.write(data.getBytes());
+
+            if(output != null)
+                output.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void createAnswerLines(LinearLayout mainLayout){
         for(int i = 0; i < 200; ++i){
             LinearLayout subLayout = new LinearLayout(this);
@@ -190,6 +208,13 @@ public class AnswerActivity extends AppCompatActivity {
             radioButtonD.setText("D");
             radioButtonD.setId(i*10 + 4);
             group.addView(radioButtonD);
+            group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup radioGroup, int id) {
+                    if((int)radioGroup.getId() % 50 == 0)
+                        autoSave(parseAnswers());
+                }
+            });
 
             subLayout.addView(questionNum);
             subLayout.addView(group);
