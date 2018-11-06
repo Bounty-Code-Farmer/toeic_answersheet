@@ -47,7 +47,7 @@ public class SaveActivity extends AppCompatActivity {
         TextView files = (TextView) findViewById(R.id.saved_files);
         String names = "";
         for(String s : fileList()){
-            names += s + "\n";
+            names += s.replace("TOEIC_", "").replace(".txt", "") + "\n";
         }
         files.setText(names);
     }
