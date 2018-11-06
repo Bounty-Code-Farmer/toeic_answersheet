@@ -2,6 +2,7 @@ package com.example.maxence.toeic_answer_sheet;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -13,8 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.Space;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
+import static android.graphics.Color.*;
 import static android.util.TypedValue.COMPLEX_UNIT_DIP;
 
 public class CheckActivity extends AppCompatActivity {
@@ -91,6 +91,15 @@ public class CheckActivity extends AppCompatActivity {
         score200.setText("" + score + "/200");
         TextView score1000 = (TextView) findViewById(R.id.check_score1000);
         score1000.setText("" + score * 5 + "/1000");
+
+        LinearLayout scoreLayout = findViewById(R.id.check_score_layout);
+        if(score*5 >= 800){
+            // Green
+            scoreLayout.setBackgroundColor(Color.parseColor("#a0ff9b"));
+        }else{
+            // Red
+            scoreLayout.setBackgroundColor(Color.parseColor("#ff9b9b"));
+        }
     }
 
     public void enableCorrection(int checkGroupId){
