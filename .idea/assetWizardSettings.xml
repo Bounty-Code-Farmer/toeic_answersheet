@@ -34,7 +34,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="101" />
+                                                <entry key="scalingPercent" value="105" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -56,7 +56,7 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="backgroundAssetType" value="COLOR" />
+                                      <entry key="backgroundImage" value="D:\Docs\Cours\5INFO\Anglais\TOEIC-Answer_sheet\Background.png" />
                                       <entry key="foregroundImage" value="D:\Docs\Cours\5INFO\Anglais\TOEIC-Answer_sheet\Logo.png" />
                                       <entry key="showSafeZone" value="false" />
                                     </map>
