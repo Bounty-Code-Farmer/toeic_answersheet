@@ -300,6 +300,10 @@ public class CheckActivity extends AppCompatActivity {
                 public void onCheckedChanged(RadioGroup radioGroup, int id) {
                     if(id%10 == 6)
                         enableCorrection(radioGroup.getId());
+                    if(id%10 == 7){
+                        RadioGroup rg = findViewById(id - id%10);
+                        disableCorrection(rg.getId(), rg.getCheckedRadioButtonId());
+                    }
                 }
             });
             checkGroup.addView(checkYes);
