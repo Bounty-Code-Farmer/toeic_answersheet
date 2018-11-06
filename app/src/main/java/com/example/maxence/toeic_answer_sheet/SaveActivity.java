@@ -52,8 +52,8 @@ public class SaveActivity extends AppCompatActivity {
         files.setText(names);
     }
 
-    public void save(View view){
-        FileOutputStream output = null;
+    public void saveClicked(View view){
+
         String fileName = "Default";
 
         EditText editText = (EditText) findViewById(R.id.save_fileName);
@@ -61,6 +61,35 @@ public class SaveActivity extends AppCompatActivity {
         if(!editTextContent.equals("") && !editTextContent.contains(".txt"))
             fileName = editText.getText().toString();
 
+        boolean collision = false;
+        for(String s : fileList()){
+            if(s.equals("TOEIC_" + fileName + ".txt"))
+                collision = true;
+        }
+        if(collision){
+            final String finalFileName = fileName;
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("File already exists")
+                    .setMessage("Do you really want to replace the existing file?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            save(finalFileName);
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+        }else{
+            save(fileName);
+        }
+
+        displayFiles();
+    }
+
+    public void save(String fileName){
+        FileOutputStream output = null;
         try {
             output = openFileOutput("TOEIC_" + fileName + ".txt", MODE_PRIVATE);
             output.write(answers.getBytes());
@@ -72,7 +101,7 @@ public class SaveActivity extends AppCompatActivity {
                 output.write(scoreWritten.getBytes());
             }
 
-            new AlertDialog.Builder(this)
+            new AlertDialog.Builder(SaveActivity.this)
                     .setIcon(android.R.drawable.ic_dialog_info)
                     .setTitle("Success!")
                     .setMessage("Answer sheet successfully saved")
@@ -89,13 +118,11 @@ public class SaveActivity extends AppCompatActivity {
 
             if(output != null)
                 output.close();
-        } catch (FileNotFoundException e) {
+        }catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        displayFiles();
     }
 
 }

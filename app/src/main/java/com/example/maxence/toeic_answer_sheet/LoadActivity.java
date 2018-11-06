@@ -88,7 +88,7 @@ public class LoadActivity extends AppCompatActivity {
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            
+
                         }
                     })
                     .show();
