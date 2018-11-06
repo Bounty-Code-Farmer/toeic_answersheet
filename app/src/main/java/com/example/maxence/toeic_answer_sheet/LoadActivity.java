@@ -1,5 +1,7 @@
 package com.example.maxence.toeic_answer_sheet;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,39 +46,54 @@ public class LoadActivity extends AppCompatActivity {
         StringBuffer data = new StringBuffer("");
         RadioGroup saves = (RadioGroup) findViewById(R.id.load_files);
         RadioButton selected = findViewById(saves.getCheckedRadioButtonId());
-        try {
-            input = openFileInput("TOEIC_" + selected.getText().toString() + ".txt");
-            byte[] buffer = new byte[1024];
-            data = new StringBuffer("");
+        if(selected != null){
+            try {
+                input = openFileInput("TOEIC_" + selected.getText().toString() + ".txt");
+                byte[] buffer = new byte[1024];
+                data = new StringBuffer("");
 
-            int n;
-            while ((n = input.read(buffer)) != -1)
-            {
-                data.append(new String(buffer, 0, n));
+                int n;
+                while ((n = input.read(buffer)) != -1)
+                {
+                    data.append(new String(buffer, 0, n));
+                }
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            String dataString = data.toString();
+
+            Intent intent;
+            if(dataString.contains("true")){ // Sheet already checked
+                intent = new Intent(this, CheckActivity.class);
+                intent.putExtra(CheckActivity.CHECKED, true);
+                intent.putExtra(CheckActivity.CHECKING, dataString.substring(200,400));
+            }else {
+                intent = new Intent(this, AnswerActivity.class);
+            }
+
+            intent.putExtra(AnswerActivity.ANSWERS, dataString.substring(0,200));
+
+            Button button = (Button) findViewById(R.id.load_load_button);
+            button.setEnabled(false);
+            startActivity(intent);
+        }else{
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("Error")
+                    .setMessage("You have to select a saved sheet first")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            
+                        }
+                    })
+                    .show();
         }
 
-        String dataString = data.toString();
-
-        Intent intent;
-        if(dataString.contains("true")){ // Sheet already checked
-            intent = new Intent(this, CheckActivity.class);
-            intent.putExtra(CheckActivity.CHECKED, true);
-            intent.putExtra(CheckActivity.CHECKING, dataString.substring(200,400));
-        }else {
-            intent = new Intent(this, AnswerActivity.class);
-        }
-
-        intent.putExtra(AnswerActivity.ANSWERS, dataString.substring(0,200));
-
-        Button button = (Button) findViewById(R.id.load_load_button);
-        button.setEnabled(false);
-        startActivity(intent);
     }
 
     public void displayFiles() {
