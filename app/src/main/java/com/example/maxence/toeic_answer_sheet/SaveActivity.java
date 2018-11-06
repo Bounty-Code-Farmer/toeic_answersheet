@@ -8,10 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
-
-import org.w3c.dom.Text;
-
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -60,6 +56,10 @@ public class SaveActivity extends AppCompatActivity {
         String editTextContent = editText.getText().toString();
         if(!editTextContent.equals("") && !editTextContent.contains(".txt"))
             fileName = editText.getText().toString();
+
+        if(checked){
+            fileName += "_CHECKED";
+        }
 
         boolean collision = false;
         for(String s : fileList()){
@@ -112,7 +112,6 @@ public class SaveActivity extends AppCompatActivity {
                             Intent intent = new Intent(SaveActivity.this, HomeActivity.class);
                             startActivity(intent);
                         }
-
                     })
                     .show();
 
