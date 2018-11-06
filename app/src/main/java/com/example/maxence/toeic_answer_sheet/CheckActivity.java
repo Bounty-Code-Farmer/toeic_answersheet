@@ -43,6 +43,8 @@ public class CheckActivity extends AppCompatActivity {
 
         if(checked)
             restoreChecking();
+
+        computeScore(findViewById(R.id.check_compute_button));
     }
 
     public void restoreChecking() {
